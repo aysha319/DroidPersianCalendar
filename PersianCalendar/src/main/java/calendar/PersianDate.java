@@ -107,12 +107,39 @@ public class PersianDate extends AbstractDate {
         return cal.get(Calendar.DAY_OF_WEEK);
     }
 
-    public int getDayOfYear() {
+    public int getDayOfYear(int firstDayOfWeek) {
         throw new RuntimeException(Constants.NOT_IMPLEMENTED_YET);
     }
 
     public int getWeekOfMonth() {
-        throw new RuntimeException(Constants.NOT_IMPLEMENTED_YET);
+        int dowOfFirstDayOfMonth=(new PersianDate(getYear(),getMonth(),1)).getDayOfWeek();
+        int dayCountInFirstWeek=(7-dowOfFirstDayOfMonth)+firstDayOfWeek;
+        if(dayCountInFirstWeek>7)
+            dayCountInFirstWeek=dayCountInFirstWeek % 7;
+
+        int week1=dayCountInFirstWeek;
+        int week2=week1+7;
+        int week3=week2+7;
+        int week4=week3+7;
+        int week5=week4+7;
+        int week6=week5+7;
+        int week7=week6+7;
+
+        if(day<=week1)
+            return 1;
+        else if(day<=week2)
+            return 2;
+        else if(day<=week3)
+            return 3;
+        else if(day<=week4)
+            return 4;
+        else if(day<=week5)
+            return 5;
+        else if(day<=week6)
+            return 6;
+        else if(day<=week7)
+            return 7;
+        return 0;
     }
 
     public boolean isLeapYear() {
